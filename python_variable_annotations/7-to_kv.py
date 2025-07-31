@@ -7,7 +7,8 @@ annotated as a float.
 """
 import typing
 
-def to_kv (k: str, v: typing.Union[int, float]) -> typing.Tuple[str, float]:
+
+def to_kv(k: str, v: typing.Union[int, float]) -> typing.Tuple[str, float]:
     """A function 'to_kv' takes a string 'k' and an int OR float 'v'
     and returns a tuple annotated as a float."""
-    return k, v*v
+    return k, v * v
