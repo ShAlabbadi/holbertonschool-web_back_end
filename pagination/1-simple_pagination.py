@@ -63,9 +63,8 @@ class Server:
         Raises:
             AssertionError: If page or page_size are not positive integers
         """
-        # Verify that both arguments are integers greater than 0
-        assert isinstance(page, int) and page > 0,
-        "page must be a positive integer"
+        # Verify that both arguments are integers greater than 
+assert isinstance(page, int) and page > 0, "page must be a positive integer"
         assert (
             isinstance(page_size, int) and page_size > 0
         ), "page_size must be a positive integer"
