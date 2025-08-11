@@ -58,23 +58,21 @@ class Server:
             page_size (int): The number of items per page
 
         Returns:
-        List[List]: The requested page of data or empty list if out of range
+            List[List]: The requested page of data or empty list if out of range
 
         Raises:
             AssertionError: If page or page_size are not positive integers
         """
-        # Verify that both arguments are integers greater than 
-assert isinstance(page, int) and page > 0, "page must be a positive integer"
-        assert (
-            isinstance(page_size, int) and page_size > 0
-        ), "page_size must be a positive integer"
+        # Verify that both arguments are integers greater than 0
+        assert isinstance(page, int) and page > 0, "page must be a positive integer"
+        assert isinstance(page_size, int) and page_size > 0, "page_size must be a positive integer"
 
         # Get the dataset
         dataset = self.dataset()
-
+        
         # Calculate the start and end indexes
         start, end = index_range(page, page_size)
-
+        
         # Return the appropriate page or empty list if out of range
         if start >= len(dataset):
             return []
