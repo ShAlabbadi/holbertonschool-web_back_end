@@ -1,11 +1,11 @@
 print("MongoDB shell version v" + db.version());
-print("connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb");
+print("connecting to: mongodb://127.0.0.1:27017");
 print("MongoDB server version: " + db.version());
 
-var dbs = db.adminCommand({listDatabases: 1});
-dbs.databases.forEach(function(db) {
-    // Convert size from bytes to GB (dividing by 1) to match your output
-    print(db.name + "\t" + (db.sizeOnDisk / 1).toFixed(3) + "GB");
+var databases = db.adminCommand({listDatabases: 1}).databases;
+databases.forEach(function(database) {
+  var sizeInGB = (database.sizeOnDisk / (1024 * 1024 * 1024)).toFixed(3);
+  print(database.name + "\t" + sizeInGB + "GB");
 });
 
 print("bye");
