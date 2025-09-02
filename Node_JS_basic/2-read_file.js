@@ -6,8 +6,10 @@ function countStudents(path) {
     const data = fs.readFileSync(path, 'utf8');
 
     // Split the data into lines and filter out empty lines
-    const lines = data.trim().split('\n');
-    const students = lines.slice(1).filter(line => line.trim() !== '');
+    const lines = data.split('\n').filter(line => line.trim() !== '');
+
+    // Remove header and get student data
+    const students = lines.slice(1);
 
     // Log total number of students
     console.log(`Number of students: ${students.length}`);
@@ -16,9 +18,13 @@ function countStudents(path) {
     const fields = {};
     students.forEach(student => {
       const [firstname, lastname, age, field] = student.split(',');
+
+      // Initialize field array if it doesn't exist
       if (!fields[field]) {
         fields[field] = [];
       }
+
+      // Add student to the field
       fields[field].push(firstname);
     });
 
