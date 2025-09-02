@@ -2,45 +2,23 @@ const fs = require('fs');
 
 function countStudents(path) {
   try {
-    // Read the file synchronously
     const data = fs.readFileSync(path, 'utf8');
-
-    // Split the data into lines
-    const lines = data.split('\n');
-
-    // Filter out empty lines and the header
-    const students = [];
-    for (let i = 1; i < lines.length; i += 1) {
-      if (lines[i].trim() !== '') {
-        students.push(lines[i]);
-      }
-    }
-
-    // Log total number of students
-    console.log(`Number of students: ${students.length}`);
-
-    // Group students by field
-    const fields = {};
-    students.forEach((student) => {
-      const [firstname, lastname, age, field] = student.split(',');
-
-      // Initialize field array if it doesn't exist
-      if (!fields[field]) {
-        fields[field] = [];
-      }
-
-      // Add student to the field
-      fields[field].push(firstname);
+    const result = [];
+    data.split('\n').forEach((data) => {
+      result.push(data.split(','));
     });
-
-    // Log number of students and list for each field
-    for (const field in fields) {
-      if (Object.prototype.hasOwnProperty.call(fields, field)) {
-        console.log(`Number of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}`);
-      }
-    }
-  } catch (error) {
-    throw new Error('Cannot load the database');
+    result.shift();
+    const newis = [];
+    result.forEach((data) => newis.push([data[0], data[3]]));
+    const fields = new Set();
+    newis.forEach((item) => fields.add(item[1]));
+    const final = {};
+    fields.forEach((data) => { (final[data] = 0); });
+    newis.forEach((data) => { (final[data[1]] += 1); });
+    console.log(`Number of students: ${result.filter((check) => check.length > 3).length}`);
+    Object.keys(final).forEach((data) => console.log(`Number of students in ${data}: ${final[data]}. List: ${newis.filter((n) => n[1] === data).map((n) => n[0]).join(', ')}`));
+  } catch (E) {
+    throw Error('Cannot load the database');
   }
 }
 
